@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div align="center">
   <img src="https://github.com/TheOrcDev/8bit-portfolio/assets/7549148/349c8acd-4b21-4996-b631-5227b2eb3fc3" alt="pixel-orc"/>
 </div>
@@ -21,7 +20,3 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-=======
-# toycube.shop
-My personal portfolio website.
->>>>>>> 6e630ad79d32f365fb7842eef1225a07b628cf37
