@@ -2,8 +2,11 @@
   "name": "8bit-portfolio",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://rashidarudino.github.io/portfolio",
   "scripts": {
     "dev": "next dev",
+    "predeploy": "next build",
+    "deploy": "gh-pages -d build",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
