@@ -22,7 +22,7 @@ title: Rashida Rudino
 email: rashidarudino@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Frontend Developer
-baseurl: "/docs" # the subpath of your site, e.g. /blog
+baseurl: "/portfolio" # the subpath of your site, e.g. /blog
 url: "http://www.toycube.shop/" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: 
 github_username:  rashidarudino
