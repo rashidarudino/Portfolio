@@ -1,7 +1,7 @@
 'use client';
 
-import AirbrbImageSlider from '@/components/ui/image-slider.tsx/airbrb-image-slider';
-import WaitupImageSlider from '@/components/ui/image-slider.tsx/waitup-image-slider';
+import AirbrbImageSlider from '@/components/ui/image-slider/airbrb-image-slider';
+import WaitupImageSlider from '@/components/ui/image-slider/waitup-image-slider';
 import Image from 'next/image';
 import React from 'react';
 import './style.css';
@@ -18,10 +18,9 @@ import {
   FaJs,
   FaHtml5,
   FaCss3,
-} from 'react-icons/fa'; // Example icons
-import { TbBrandCpp } from 'react-icons/tb';
+} from 'react-icons/fa';
 import { SiPlatformio } from 'react-icons/si';
-import DlImageSlider from '@/components/ui/image-slider.tsx/dl-image-slider copy';
+import DlImageSlider from '@/components/ui/image-slider/dl-image-slider copy';
 import { FaMobileScreenButton } from 'react-icons/fa6';
 
 export default function Archive() {
@@ -37,11 +36,13 @@ export default function Archive() {
               in javascript.
             </p>
           </div>
-          <img
+          <Image
             src='/digital/digital-01.jpg'
             alt='User Avatar'
-            className='nes-avatar is-large' /* Adjust sizes as needed */
-            style={{ imageRendering: 'pixelated', marginTop: '7rem' }}
+            className='nes-avatar is-large'
+            style={{ imageRendering: 'pixelated', marginTop: '8rem' }}
+            width={400}
+            height={400}
           />
         </div>
       </div>

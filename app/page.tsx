@@ -4,17 +4,18 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
-  FaUser,
   FaGraduationCap,
   FaChalkboardTeacher,
   FaCubes,
   FaBook,
+  FaDownload,
 } from 'react-icons/fa'; // Import icons
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { IoFastFood } from 'react-icons/io5';
 import { BiChalkboard } from 'react-icons/bi';
-import { FaBowlFood, FaMessage } from 'react-icons/fa6';
+import { FaMessage } from 'react-icons/fa6';
+import ContactForm from '@/components/ui/contact-form/contact-form';
 
 export default function Home() {
   const { ref: profileRef, inView: profileInView } = useInView({
@@ -29,11 +30,14 @@ export default function Home() {
   const { ref: projectRef, inView: projectInView } = useInView({
     triggerOnce: true,
   });
+  const { ref: resumeRef, inView: resumeInView } = useInView({
+    triggerOnce: true,
+  });
 
   const router = useRouter();
 
   return (
-    <main className='flex flex-col items-center justify-center p-10 gap-40'>
+    <main className='flex flex-col items-center justify-center p-10 gap-24'>
       {/* Header Section */}
       <header className='nes-container with-title is-centered bg-white md:w-[45rem] shadow-lg rounded-lg p-6'>
         <motion.h1
@@ -67,15 +71,20 @@ export default function Home() {
         >
           <p className='title'>Profile</p>
           <div className='flex items-start space-x-4'>
-            <img
+            <Image
               src='/digital/digital-01.jpg'
               alt='User Avatar'
-              className='nes-avatar is-large' /* Adjust sizes as needed */
-              style={{ imageRendering: 'pixelated', marginTop: '11rem' }}
+              className='nes-avatar is-large'
+              style={{ imageRendering: 'pixelated', marginTop: '7rem' }}
+              width={400}
+              height={400}
             />
             <div className='nes-balloon from-left w-full max-w-md p-4'>
-              Welcome to my portfolio! I'm excited to share some of the
-              technological adventures I've embarked on. Enjoy your visit!
+              <p>Welcome to my portfolio!</p>
+              <p className='text-xs'>
+                I'm excited to share some of the technological adventures I've
+                embarked on. Enjoy your visit!
+              </p>
             </div>
           </div>
         </motion.div>
@@ -319,6 +328,50 @@ export default function Home() {
           </div>
         </motion.div>
       </section>
+      <section ref={resumeRef} className='w-full flex justify-center gap-6'>
+        <motion.div
+          className='nes-container with-title is-rounded bg-white md:w-[45rem] shadow-lg rounded-lg p-6'
+          initial={{ opacity: 0, y: 20 }}
+          animate={{
+            opacity: resumeInView ? 1 : 0,
+            y: resumeInView ? 0 : 20,
+          }}
+          transition={{ duration: 0.6 }}
+        >
+          <p className='title'>Download Resume</p>
+          <div className='flex flex-col items-center mt-4'>
+            <div className='nes-balloon from-bottom w-full max-w-md text-center p-4'>
+              <p className='text-lg font-bold mb-2'>Get to Know Me Better!</p>
+              <p className='text-xs'>
+                Download my resume to see a detailed account of my skills,
+                experience, and achievements. Feel free to reach out for any
+                inquiries!
+              </p>
+            </div>
+            <a
+              href='/rashida-rudino-resume-2024.pdf' // Replace with the path to your resume
+              download='rashida-rudino-resume-2024.pdf'
+              className='nes-btn is-success mt-6 flex items-center'
+            >
+              <FaDownload className='mr-2' />
+              Download Resume
+            </a>
+          </div>
+        </motion.div>
+      </section>
+      <motion.div
+        className='nes-container with-title is-rounded bg-white md:w-[45rem] shadow-lg rounded-lg p-6'
+        initial={{ opacity: 0, y: 20 }}
+        animate={{
+          opacity: resumeInView ? 1 : 0,
+          y: resumeInView ? 0 : 20,
+        }}
+        transition={{ duration: 0.6 }}
+      >
+        <ContactForm />
+      </motion.div>
+      {/* Add new sections */}
+      <section className='w-full flex justify-center gap-6 mb-20'></section>
     </main>
   );
 }

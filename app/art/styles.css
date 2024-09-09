@@ -1,14 +1,10 @@
-.pixel-art-image {
-  display: block;
-  padding: 5rem;
-}
-
 .pixel-art-image img {
-  width: calc(10rem * 2);
+  width: calc(1rem * 2);
   image-rendering: pixelated; /* Ensures pixelated rendering */
   object-fit: contain; /* Ensures the image is contained within its container */
   -ms-interpolation-mode: nearest-neighbor;
 }
+
   /* Flex container for buttons */
 .button-container {
   display: flex;

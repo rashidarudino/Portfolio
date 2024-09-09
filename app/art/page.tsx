@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css'; // Import the default styles
 import './styles.css';
-
+import Image from 'next/image';
 interface ArtItem {
   original: string;
 }
@@ -18,7 +18,6 @@ type ArtCategories = {
 
 const artCategories: ArtCategories = {
   pixels: [
-    { original: '/digital/digital-09.jpg' },
     { original: '/pixels/c-pixel-16.gif' },
     { original: '/pixels/c-pixel-00.gif' },
     { original: '/pixels/c-pixel-01.gif' },
@@ -53,6 +52,7 @@ const artCategories: ArtCategories = {
     { original: '/pixels/c-pixel-31.gif' },
     { original: '/pixels/c-pixel-32.gif' },
     { original: '/pixels/c-pixel-33.gif' },
+    { original: '/digital/digital-09.jpg' },
   ],
   digital: [
     { original: '/digital/digital-04.jpg' },
@@ -104,7 +104,7 @@ const artCategories: ArtCategories = {
 
 const categoryDescriptions: { [key in keyof ArtCategories]: string } = {
   pixels:
-    'Explore my pixel art commission collection, showcasing retro-style graphics and animations for group icons and avatars ordered by Deviantart users.',
+    'Explore my pixel art commissions ordered by Deviantart users and other animation works.',
   digital:
     'Discover a range of digital artwork including illustrations and graphics.',
   gameDev:
@@ -112,7 +112,7 @@ const categoryDescriptions: { [key in keyof ArtCategories]: string } = {
   crochet:
     'Browse through my crochet creations, showcasing various handmade items.',
   revit:
-    'View my architectural designs and 3D models created with Revit from my Building Information Modelling (BIM) UNSW architecture general education course.',
+    'View my architectural designs and 3D models created with Revit from my BIM UNSW GenEd course.',
 };
 
 // Function to generate a thumbnail from the original image
@@ -141,19 +141,21 @@ export default function Art() {
           <div className='nes-balloon from-right w-full max-w-md p-4'>
             Welcome to the Art page!
             <p className='text-xs'>
-              Besides coding, I like to crochet, play the piano, or draw.
+              When I am not coding, I like to crochet, play the piano, or draw.
             </p>
           </div>
-          <img
+          <Image
             src='/digital/digital-01.jpg'
             alt='User Avatar'
-            className='nes-avatar is-large' /* Adjust sizes as needed */
+            className='nes-avatar is-large'
             style={{ imageRendering: 'pixelated', marginTop: '6rem' }}
+            width={400}
+            height={400}
           />
         </div>
       </div>
 
-      <section className='nes-container w-full bg-slate-50 max-w-4xl mt-8'>
+      <section className='nes-container w-3/4 h-3/4 bg-slate-50 mt-8 mb-36'>
         <h2 className='text-2xl font-bold mb-4'>Art Categories</h2>
         <p className='text-xs block'>
           Tip: you can hold down the arrow keys to browse.
@@ -184,7 +186,23 @@ export default function Art() {
           thumbnailPosition='bottom'
           renderItem={(item) => (
             <div className={`image-gallery-image ${item.description}`}>
-              <img src={item.original} alt='' />
+              <Image
+                src={item.original}
+                alt=''
+                layout='responsive'
+                width={800}
+                height={600}
+                priority
+                style={
+                  currentCategory === 'pixels'
+                    ? { maxHeight: '20vh', maxWidth: '100vw', marginBottom: '2rem' }
+                    : {
+                        maxHeight: '80vh',
+                        maxWidth: '100vw',
+                        objectFit: 'scale-down',
+                      }
+                }
+              />
             </div>
           )}
         />
