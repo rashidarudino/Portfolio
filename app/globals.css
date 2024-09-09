@@ -21,10 +21,70 @@ body {
   background: url("/grass.jpeg") repeat,
     linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb)))
       rgb(var(--background-start-rgb));
+      background-size: 200px 200px;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+/* Container for the slider */
+.slider-container {
+  position: relative;
+}
+
+/* Larger custom arrows */
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust background color */
+  border: none;
+  color: white; /* Adjust arrow color */
+  cursor: pointer;
+  z-index: 10;
+}
+
+.slider-prev {
+  left: 10px; /* Position of the left arrow */
+}
+
+.slider-next {
+  right: 10px; /* Position of the right arrow */
+}
+
+/* Larger arrow icons */
+.slider-arrow svg {
+  width: 50px; /* Adjust arrow size */
+  height: 50px; /* Adjust arrow size */
+}
+
+/* Larger slider dots */
+.slick-dots {
+  position: absolute;
+  bottom: 10px; /* Adjust position of dots */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+}
+
+.slick-dots li {
+  margin: 0 10px; /* Space between dots */
+}
+
+.slick-dots li button {
+  font-size: 0; /* Hide default text */
+  background-color: rgba(255, 255, 255, 0.8); /* Dot color */
+  border-radius: 50%;
+  width: 20px; /* Larger dot size */
+  height: 20px; /* Larger dot size */
+}
+
+.slick-dots li.slick-active button {
+  background-color: #fff; /* Active dot color */
 }

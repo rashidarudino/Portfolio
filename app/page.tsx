@@ -1,143 +1,299 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import {
+  FaUser,
+  FaGraduationCap,
+  FaCode,
+  FaTools,
+  FaGamepad,
+  FaChalkboardTeacher,
+} from 'react-icons/fa'; // Import icons
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { IoFastFood } from 'react-icons/io5';
+import { BiChalkboard } from 'react-icons/bi';
 
 export default function Home() {
+  const { ref: profileRef, inView: profileInView } = useInView({
+    triggerOnce: true,
+  });
+  const { ref: educationRef, inView: educationInView } = useInView({
+    triggerOnce: true,
+  });
+  const { ref: skillsRef, inView: skillsInView } = useInView({
+    triggerOnce: true,
+  });
+  const { ref: projectRef, inView: projectInView } = useInView({
+    triggerOnce: true,
+  });
+
+  const router = useRouter();
+
   return (
-    <main className='flex flex-col items-center justify-between p-10 gap-10'>
-      <h1 className='text-center'>
-        Are you looking to become a true web dev warrior?
-      </h1>
+    <main className='flex flex-col items-center justify-center p-10 bg-gray-100 gap-10'>
+      {/* Header Section */}
+      <header className='text-center mb-10'>
+        <motion.h1
+          className='text-4xl font-bold text-blue-600'
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          Rashida Rudino
+        </motion.h1>
+        <motion.p
+          className='text-lg text-gray-700'
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          Exploring the world of technology and creativity
+        </motion.p>
+      </header>
 
-      <div className='nes-container with-title is-centered bg-blue-200 md:w-[45rem]'>
-        <p className='title'>Profile</p>
-        <p>
-          My time tutoring students at Cluey Learning has sparked a lot of
-          creativity in me. With my recent Computer Science degree, I'm excited
-          to share some of the technological adventures I've embarked on. Feel
-          free to explore and discover what I've been working on!
-        </p>
-      </div>
-
-      <div className='nes-container with-title is-centered bg-white md:w-[45rem]'>
-        <p className='title'>Education</p>
-        Bachelor of <strong>Computer Science</strong> at UNSW Sydney Kensington
-        Campus, 2024 August.
-      </div>
-
-      <div className='nes-container is-rounded bg-white'>
-        <div className='flex flex-col items-center justify-center'>
-          <Image
-            width={100}
-            height={100}
-            src={'/axe-and-shield.webp'}
-            alt='Axe & Shield'
-          />
-          <p className='text-center'>These are my skills</p>
-
-          {/* Frontend Development */}
-          <h2 className='text-center mt-4 mb-2'>Frontend Development</h2>
-          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
-            <Link href='#' className='nes-badge'>
-              <span className='is-primary'>JavaScript</span>
-            </Link>
-            <Link href='#' className='nes-badge'>
-              <span className='is-warning'>HTML/CSS</span>
-            </Link>
-            <Link href='#' className='nes-badge'>
-              <span className='is-dark'>React.js</span>
-            </Link>
-            <Link href='#' className='nes-badge'>
-              <span className='is-success'>MUI</span>
-            </Link>
-            <Link href='#' className='nes-badge'>
-              <span className='is-error'>Astro</span>
-            </Link>
-            <Link href='#' className='nes-badge'>
-              <span className='is-primary'>Svelte</span>
-            </Link>
-            <Link href='#' className='nes-badge'>
-              <span className='is-warning'>Next.js</span>
-            </Link>
+      {/* Profile Section */}
+      <section ref={profileRef} className='w-full flex justify-center'>
+        <motion.div
+          className='nes-container with-title is-centered bg-blue-200 md:w-[45rem] shadow-lg rounded-lg p-6'
+          initial={{ opacity: 0, y: 20 }}
+          animate={{
+            opacity: profileInView ? 1 : 0,
+            y: profileInView ? 0 : 20,
+          }}
+          transition={{ duration: 0.6 }}
+        >
+          <p className='title'>Profile</p>
+          <div className='flex items-center'>
+            <FaUser fontSize={'15rem'} className='text-blue-500' />
+            <p>
+              Welcome to my portfolio! I'm excited to share some of the
+              technological adventures I've embarked. I love pixels and bright
+              colors, blending lineless, retro-inspired fantasy with a modern
+              twist. Enjoy your visit!
+            </p>
           </div>
+        </motion.div>
+      </section>
 
-          {/* Backend Development */}
-          <h2 className='text-center mt-4 mb-2'>Backend Development</h2>
-          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
-            <Link href='#' className='nes-badge'>
-              <span className='is-dark'>Node.js</span>
-            </Link>
-            <Link href='#' className='nes-badge'>
-              <span className='is-success'>Express.js</span>
-            </Link>
-            <Link href='#' className='nes-badge'>
-              <span className='is-error'>REST API</span>
-            </Link>
-            <Link href='#' className='nes-badge'>
-              <span className='is-primary'>MySQL</span>
-            </Link>
-            <Link href='#' className='nes-badge'>
-              <span className='is-warning'>PostgreSQL</span>
-            </Link>
-            <Link href='#' className='nes-badge'>
-              <span className='is-dark'>Apache2</span>
-            </Link>
-            <Link href='#' className='nes-badge'>
-              <span className='is-success'>Nginx</span>
-            </Link>
+      {/* Education Section */}
+      <section ref={educationRef} className='w-full flex justify-center'>
+        <motion.div
+          className='nes-container with-title is-centered bg-white md:w-[45rem] shadow-lg rounded-lg p-6'
+          initial={{ opacity: 0, y: 20 }}
+          animate={{
+            opacity: educationInView ? 1 : 0,
+            y: educationInView ? 0 : 20,
+          }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <p className='title'>Education & Work Experience</p>
+          <div className='flex flex-col gap-4'>
+            <div className='flex items-center'>
+              <FaGraduationCap fontSize={'5rem'} className='text-yellow-500' />
+              <span className='mx-4'>UNSW Bachelor of Computer Science</span>
+            </div>
+            <div className='flex items-center'>
+              <FaChalkboardTeacher
+                fontSize={'5rem'}
+                className='text-orange-500'
+              />
+              <span className='mx-4'>Cluey Learning Tutor</span>
+            </div>
+            <div className='flex items-center'>
+              <BiChalkboard fontSize={'5rem'} className='text-green-500' />
+              <span className='mx-4'>CSEducation Tutor</span>
+            </div>
+            <div className='flex items-center'>
+              <IoFastFood fontSize={'5rem'} className='text-red-500' />
+              <span className='mx-4'>Ogalo Crew Member</span>
+            </div>
           </div>
+        </motion.div>
+      </section>
 
-          {/* Programming Languages */}
-          <h2 className='text-center mt-4 mb-2'>Programming Languages</h2>
-          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
-            <Link href='#' className='nes-badge'>
-              <span className='is-error'>C++</span>
-            </Link>
-            <Link href='#' className='nes-badge'>
-              <span className='is-primary'>Python</span>
-            </Link>
-            <Link href='#' className='nes-badge'>
-              <span className='is-warning'>Rust</span>
-            </Link>
-            <Link href='#' className='nes-badge'>
-              <span className='is-dark'>Shell</span>
-            </Link>
-          </div>
+      {/* Skills Section */}
+      <section ref={skillsRef} className='w-full flex justify-center'>
+        <motion.div
+          className='nes-container is-rounded bg-white md:w-[45rem] shadow-lg rounded-lg p-6'
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: skillsInView ? 1 : 0, y: skillsInView ? 0 : 20 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <div className='flex flex-col items-center'>
+            <Image
+              width={100}
+              height={100}
+              src={'/axe-and-shield.webp'}
+              alt='Axe & Shield'
+            />
+            <p className='text-center text-xl font-semibold mt-4'>My Skills</p>
 
-          {/* Tools & Frameworks */}
-          <h2 className='text-center mt-4 mb-2'>Tools & Frameworks</h2>
-          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
-            <Link href='#' className='nes-badge'>
-              <span className='is-success'>Git</span>
-            </Link>
-            <Link href='#' className='nes-badge'>
-              <span className='is-error'>Postman API</span>
-            </Link>
-            <Link href='#' className='nes-badge'>
-              <span className='is-primary'>Jira</span>
-            </Link>
-            <Link href='#' className='nes-badge'>
-              <span className='is-warning'>CI/CD</span>
-            </Link>
-          </div>
+            {/* Frontend Development */}
+            <section className='mt-8'>
+              <motion.h2
+                className='text-2xl font-bold mb-2'
+                initial={{ opacity: 0, y: -20 }}
+                animate={{
+                  opacity: skillsInView ? 1 : 0,
+                  y: skillsInView ? 0 : -20,
+                }}
+                transition={{ duration: 0.5 }}
+              >
+                Frontend Development
+              </motion.h2>
+              <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
+                <Link href='#' className='nes-badge bg-blue-200'>
+                  <span className='is-primary'>JavaScript</span>
+                </Link>
+                <Link href='#' className='nes-badge bg-yellow-200'>
+                  <span className='is-warning'>HTML/CSS</span>
+                </Link>
+                <Link href='#' className='nes-badge bg-gray-200'>
+                  <span className='is-dark'>React.js</span>
+                </Link>
+                <Link href='#' className='nes-badge bg-green-200'>
+                  <span className='is-success'>MUI</span>
+                </Link>
+                <Link href='#' className='nes-badge bg-red-200'>
+                  <span className='is-error'>Tailwind</span>
+                </Link>
+                <Link href='#' className='nes-badge bg-blue-200'>
+                  <span className='is-primary'>Bootstrap</span>
+                </Link>
+              </div>
+            </section>
 
-          {/* Game & App Development */}
-          <h2 className='text-center mt-4 mb-2'>Game & App Development</h2>
-          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
-            <Link href='#' className='nes-badge'>
-              <span className='is-dark'>Revit</span>
-            </Link>
-            <Link href='#' className='nes-badge'>
-              <span className='is-success'>Unreal</span>
-            </Link>
-            <Link href='#' className='nes-badge'>
-              <span className='is-error'>Unity2D</span>
-            </Link>
-            <Link href='#' className='nes-badge'>
-              <span className='is-primary'>PowerApps</span>
-            </Link>
+            {/* Backend Development */}
+            <section className='mt-8'>
+              <motion.h2
+                className='text-2xl font-bold mb-2'
+                initial={{ opacity: 0, y: -20 }}
+                animate={{
+                  opacity: skillsInView ? 1 : 0,
+                  y: skillsInView ? 0 : -20,
+                }}
+                transition={{ duration: 0.5 }}
+              >
+                Backend Development
+              </motion.h2>
+              <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
+                <Link href='#' className='nes-badge bg-gray-200'>
+                  <span className='is-dark'>Node.js</span>
+                </Link>
+                <Link href='#' className='nes-badge bg-green-200'>
+                  <span className='is-success'>Express.js</span>
+                </Link>
+                <Link href='#' className='nes-badge bg-red-200'>
+                  <span className='is-error'>REST API</span>
+                </Link>
+                <Link href='#' className='nes-badge bg-blue-200'>
+                  <span className='is-primary'>MySQL</span>
+                </Link>
+                <Link href='#' className='nes-badge bg-yellow-200'>
+                  <span className='is-warning'>PostgreSQL</span>
+                </Link>
+                <Link href='#' className='nes-badge bg-gray-200'>
+                  <span className='is-dark'>Apache2</span>
+                </Link>
+                <Link href='#' className='nes-badge bg-green-200'>
+                  <span className='is-success'>Nginx</span>
+                </Link>
+              </div>
+            </section>
+
+            {/* Programming Languages */}
+            <section className='mt-8'>
+              <motion.h2
+                className='text-2xl font-bold mb-2'
+                initial={{ opacity: 0, y: -20 }}
+                animate={{
+                  opacity: skillsInView ? 1 : 0,
+                  y: skillsInView ? 0 : -20,
+                }}
+                transition={{ duration: 0.5 }}
+              >
+                Programming Languages
+              </motion.h2>
+              <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
+                <Link href='#' className='nes-badge bg-red-200'>
+                  <span className='is-error'>Python</span>
+                </Link>
+                <Link href='#' className='nes-badge bg-blue-200'>
+                  <span className='is-primary'>JavaScript</span>
+                </Link>
+                <Link href='#' className='nes-badge bg-yellow-200'>
+                  <span className='is-warning'>Java</span>
+                </Link>
+                <Link href='#' className='nes-badge bg-green-200'>
+                  <span className='is-success'>C#</span>
+                </Link>
+                <Link href='#' className='nes-badge bg-gray-200'>
+                  <span className='is-dark'>C++</span>
+                </Link>
+                <Link href='#' className='nes-badge bg-red-200'>
+                  <span className='is-error'>C</span>
+                </Link>
+              </div>
+            </section>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </section>
+
+      {/* Projects Section */}
+      <section ref={projectRef} className='w-full flex justify-center'>
+        <motion.div
+          className='nes-container with-title is-rounded bg-white md:w-[45rem] shadow-lg rounded-lg p-6'
+          initial={{ opacity: 0, y: 20 }}
+          animate={{
+            opacity: projectInView ? 1 : 0,
+            y: projectInView ? 0 : 20,
+          }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <p className='title'>Projects</p>
+          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+            <div className='flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md'>
+              <FaCode className='text-4xl text-blue-600' />
+              <h3 className='text-xl font-bold mt-2'>Project 1</h3>
+              <p className='text-center mt-1'>Description of project 1.</p>
+              <Link
+                href='#'
+                className='mt-4 text-blue-600 hover:underline'
+                onClick={() => router.push('/projects/project1')}
+              >
+                View Details
+              </Link>
+            </div>
+            <div className='flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md'>
+              <FaTools className='text-4xl text-green-600' />
+              <h3 className='text-xl font-bold mt-2'>Project 2</h3>
+              <p className='text-center mt-1'>Description of project 2.</p>
+              <Link
+                href='#'
+                className='mt-4 text-blue-600 hover:underline'
+                onClick={() => router.push('/projects/project2')}
+              >
+                View Details
+              </Link>
+            </div>
+            <div className='flex flex-col items-center bg-gray-200 p-4 rounded-lg shadow-md'>
+              <FaGamepad className='text-4xl text-red-600' />
+              <h3 className='text-xl font-bold mt-2'>Project 3</h3>
+              <p className='text-center mt-1'>Description of project 3.</p>
+              <Link
+                href='#'
+                className='mt-4 text-blue-600 hover:underline'
+                onClick={() => router.push('/projects/project3')}
+              >
+                View Details
+              </Link>
+            </div>
+          </div>
+        </motion.div>
+      </section>
     </main>
   );
 }

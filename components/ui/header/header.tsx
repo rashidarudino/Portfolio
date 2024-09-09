@@ -1,20 +1,45 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import './styles.css';
 import React, { useState } from 'react';
 import { FaDeviantart, FaEtsy } from 'react-icons/fa';
+
 export default function Header() {
+  const router = useRouter();
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
   return (
     <header className='flex w-full justify-end p-5'>
-      <button
-        type='button'
-        className='nes-btn is-primary'
-        onClick={() => setIsShowModal(!isShowModal)}
-      >
-        <i className='nes-icon trophy'></i>
-      </button>
-
+      <div className='flex gap-4'>
+        <button
+          type='button'
+          className='nes-btn is-primary'
+          onClick={() => router.push('/')}
+        >
+          Home
+        </button>
+        <button
+          type='button'
+          className='nes-btn is-primary'
+          onClick={() => router.push('/archive')}
+        >
+          Archive
+        </button>
+        <button
+          type='button'
+          className='nes-btn is-primary'
+          onClick={() => router.push('/art')}
+        >
+          Gallery
+        </button>
+        <button
+          type='button'
+          className='nes-btn is-primary'
+          onClick={() => setIsShowModal(!isShowModal)}
+        >
+          <i className='nes-icon trophy'></i>
+        </button>
+      </div>
       {isShowModal && (
         <div className='nes-dialog absolute top-20 bg-white z-10'>
           <div className='flex justify-end'>
@@ -61,7 +86,10 @@ export default function Header() {
                 rel='noopener noreferrer'
               >
                 <button type='button' className='nes-btn'>
-                  <FaEtsy className='text-4xl pixelated-icon' style={{ color: '#F5B120' }} />
+                  <FaEtsy
+                    className='text-4xl pixelated-icon'
+                    style={{ color: '#F5B120' }}
+                  />
                 </button>
               </a>
               <a
