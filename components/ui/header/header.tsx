@@ -1,37 +1,85 @@
 'use client';
-import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link'; // Import Link from next/link
 import './styles.css';
-import React, { useState } from 'react';
-import { FaDeviantart, FaEtsy } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import {
+  FaArchive,
+  FaDeviantart,
+  FaEtsy,
+  FaHome,
+  FaPaintBrush,
+  FaQuestion,
+} from 'react-icons/fa';
 
 export default function Header() {
-  const router = useRouter();
+  const pathname = usePathname();
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
+  const [activePath, setActivePath] = useState<string>(pathname);
+
+  // Update activePath when pathname changes
+  useEffect(() => {
+    setActivePath(pathname);
+  }, [pathname]);
 
   return (
     <header className='flex w-full justify-end p-5'>
       <div className='flex gap-4'>
-        <button
-          type='button'
-          className='nes-btn is-primary'
-          onClick={() => router.push('/')}
-        >
-          Home
-        </button>
-        <button
-          type='button'
-          className='nes-btn is-primary'
-          onClick={() => router.push('/archive')}
-        >
-          Archive
-        </button>
-        <button
-          type='button'
-          className='nes-btn is-primary'
-          onClick={() => router.push('/art')}
-        >
-          Gallery
-        </button>
+        <Link href="/">
+          <button
+            type='button'
+            className={`nes-btn ${
+              activePath === '/' || activePath === '/#'
+                ? 'is-warning'
+                : 'is-primary'
+            }`}
+          >
+            <FaHome fontSize={'2rem'} />
+          </button>
+        </Link>
+
+        <Link href="/about">
+          <button
+            type='button'
+            className={`nes-btn ${
+              activePath.startsWith('/about') &&
+              (activePath === '/about' || activePath.startsWith('/about#'))
+                ? 'is-warning'
+                : 'is-primary'
+            }`}
+          >
+            <FaQuestion fontSize={'2rem'} />
+          </button>
+        </Link>
+
+        <Link href="/archive">
+          <button
+            type='button'
+            className={`nes-btn ${
+              activePath.startsWith('/archive') &&
+              (activePath === '/archive' || activePath.startsWith('/archive#'))
+                ? 'is-warning'
+                : 'is-primary'
+            }`}
+          >
+            <FaArchive fontSize={'2rem'} />
+          </button>
+        </Link>
+
+        <Link href="/art">
+          <button
+            type='button'
+            className={`nes-btn ${
+              activePath.startsWith('/art') &&
+              (activePath === '/art' || activePath.startsWith('/art#'))
+                ? 'is-warning'
+                : 'is-primary'
+            }`}
+          >
+            <FaPaintBrush fontSize={'2rem'} />
+          </button>
+        </Link>
+
         <button
           type='button'
           className='nes-btn is-primary'
@@ -40,6 +88,7 @@ export default function Header() {
           <i className='nes-icon trophy'></i>
         </button>
       </div>
+
       {isShowModal && (
         <div className='nes-dialog absolute top-20 bg-white z-10'>
           <div className='flex justify-end'>
@@ -48,7 +97,7 @@ export default function Header() {
             </button>
           </div>
           <div className='p-3'>
-            <p className='title text-sm'>Join the Mighty Horde!</p>
+            <p className='title text-sm'>Join the Mighty Alliance!</p>
             <div className='flex gap-2 justify-center items-center'>
               <a
                 href='https://github.com/rashidarudino'

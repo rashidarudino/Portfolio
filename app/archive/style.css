@@ -28,3 +28,7 @@
     animation: slideInFromLeft 1s ease-out;
   }
   
+.bullet-icon {
+  margin-bottom: 1rem;
+  font-size: 30px;
+}

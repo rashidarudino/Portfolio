@@ -1,0 +1,34 @@
+.pixel-art-image {
+  display: block;
+  padding: 5rem;
+}
+
+.pixel-art-image img {
+  width: calc(10rem * 2);
+  image-rendering: pixelated; /* Ensures pixelated rendering */
+  object-fit: contain; /* Ensures the image is contained within its container */
+  -ms-interpolation-mode: nearest-neighbor;
+}
+  /* Flex container for buttons */
+.button-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow buttons to wrap onto multiple lines */
+  gap: 10px; /* Space between buttons */
+  justify-content: center; /* Center buttons horizontally */
+  margin-bottom: 1rem; /* Margin below the container */
+}
+
+/* Button styles */
+.button-container button {
+  flex: 1 1 auto; /* Allow buttons to grow and shrink */
+  max-width: 150px; /* Limit the maximum width of each button */
+  /* Optional: Add padding, margins, or font-size adjustments for different devices */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+  .button-container {
+    flex-direction: column; /* Stack buttons vertically on small screens */
+    align-items: center; /* Center buttons horizontally */
+  }
+}

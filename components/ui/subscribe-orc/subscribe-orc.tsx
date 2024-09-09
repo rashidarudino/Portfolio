@@ -10,8 +10,8 @@ export default function SubscribeOrc() {
   return (
     <div className="fixed bottom-0 right-0 w-32 md:w-64">
       {isShowDialog && (
-        <div className="nes-balloon from-right w-44">
-          <p className="text-xs">*bubbles*</p>
+        <div className="nes-balloon from-right w-44 p-0">
+          <p className="text-xs">Hello! ハイ！ Apa kabar?</p>
         </div>
       )}
 
@@ -22,6 +22,7 @@ export default function SubscribeOrc() {
           src={"/bubble-tea.gif"}
           width={100}
           height={300}
+          style={{marginLeft:'10rem'}}
           alt="Orc"
         />
       </Link>
