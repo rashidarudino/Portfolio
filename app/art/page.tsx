@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css'; // Import the default styles
 import './styles.css';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 interface ArtItem {
   original: string;
 }
@@ -136,7 +136,7 @@ export default function Art() {
   return (
     <main className='flex flex-col items-center justify-between p-4 gap-10'>
       <div className='nes-container with-title is-centered bg-blue-200 w-full max-w-screen-md fade-in-up'>
-        <p className='title'>Art Gallery</p>
+        <p className='title'>Art</p>
         <div className='flex items-start space-x-4'>
           <div className='nes-balloon from-right w-full max-w-md p-4'>
             Welcome to the Art page!
@@ -156,26 +156,25 @@ export default function Art() {
       </div>
 
       <section className='nes-container w-3/4 h-3/4 bg-slate-50 mt-8 mb-36'>
-        <h2 className='text-2xl font-bold mb-4'>Art Categories</h2>
-        <p className='text-xs block'>
+        <div className='nes-container with-title is-centered bg-blue-200 w-full max-w-screen-md fade-in-up'>
+          <h1 className='title text-center'>Gallery</h1>
           Tip: you can hold down the arrow keys to browse.
-        </p>
-        <div className='button-container'>
-          {Object.keys(artCategories).map((category) => (
-            <button
-              key={category}
-              onClick={() => setCurrentCategory(category)}
-              className={`nes-btn is-normal text-xs px-4 bordered py-2 rounded ${
-                currentCategory === category ? 'is-success' : 'is-normal'
-              }`}
-            >
-              {category.charAt(0).toUpperCase() + category.slice(1)}
-            </button>
-          ))}
+          <div className='button-container'>
+            {Object.keys(artCategories).map((category) => (
+              <button
+                key={category}
+                onClick={() => setCurrentCategory(category)}
+                className={`nes-btn is-normal text-xs px-4 bordered py-2 rounded ${
+                  currentCategory === category ? 'is-success' : 'is-normal'
+                }`}
+              >
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+              </button>
+            ))}
+          </div>
         </div>
-        <div className='category-description'>
-          <p>{categoryDescriptions[currentCategory as keyof ArtCategories]}</p>
-        </div>
+        <br />
+        <p>{categoryDescriptions[currentCategory as keyof ArtCategories]}</p>
         <ImageGallery
           items={images}
           showFullscreenButton={true}
@@ -185,7 +184,16 @@ export default function Art() {
           showNav={true}
           thumbnailPosition='bottom'
           renderItem={(item) => (
-            <div className={`image-gallery-image ${item.description}`}>
+            <div
+              className={`image-gallery-image ${item.description}`}
+              style={{
+                width: '100%',
+                maxHeight: '50%',
+                maxWidth: '80vw',
+                textAlign: 'center',
+                height: 'auto',
+              }}
+            >
               <Image
                 src={item.original}
                 alt=''
@@ -193,15 +201,6 @@ export default function Art() {
                 width={800}
                 height={600}
                 priority
-                style={
-                  currentCategory === 'pixels'
-                    ? { maxHeight: '20vh', maxWidth: '100vw', marginBottom: '2rem' }
-                    : {
-                        maxHeight: '80vh',
-                        maxWidth: '100vw',
-                        objectFit: 'scale-down',
-                      }
-                }
               />
             </div>
           )}

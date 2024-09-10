@@ -1,0 +1,23 @@
+.search-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+  }
+  
+  .search-icon {
+    font-size: 24px;
+    color: #333;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  
+  .search-icon-container:hover .search-icon {
+    color: #0070f3; /* Change color on hover */
+    transform: scale(1.2); /* Scale up icon */
+  }
+  
+  .search-icon-container:active .search-icon {
+    transform: scale(1.1); /* Slightly scale down on click */
+  }

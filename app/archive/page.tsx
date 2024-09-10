@@ -2,7 +2,7 @@
 
 import AirbrbImageSlider from '@/components/ui/image-slider/airbrb-image-slider';
 import WaitupImageSlider from '@/components/ui/image-slider/waitup-image-slider';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import React from 'react';
 import './style.css';
 import {

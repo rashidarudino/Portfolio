@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
@@ -16,6 +16,7 @@ import { IoFastFood } from 'react-icons/io5';
 import { BiChalkboard } from 'react-icons/bi';
 import { FaMessage } from 'react-icons/fa6';
 import ContactForm from '@/components/ui/contact-form/contact-form';
+import FormPage from '@/components/ui/form/form';
 
 export default function Home() {
   const { ref: profileRef, inView: profileInView } = useInView({
@@ -33,11 +34,17 @@ export default function Home() {
   const { ref: resumeRef, inView: resumeInView } = useInView({
     triggerOnce: true,
   });
+  const { ref: formRef, inView: formInView } = useInView({
+    triggerOnce: true,
+  });
+  const { ref: contactRef, inView: contactInView } = useInView({
+    triggerOnce: true,
+  });
 
   const router = useRouter();
 
   return (
-    <main className='flex flex-col items-center justify-center p-10 gap-24'>
+    <main className='flex flex-col items-center justify-center p-10 gap-24 mb-36'>
       {/* Header Section */}
       <header className='nes-container with-title is-centered bg-white md:w-[45rem] shadow-lg rounded-lg p-6'>
         <motion.h1
@@ -261,7 +268,7 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section ref={projectRef} className='w-full flex justify-center  mb-20'>
+      <section ref={projectRef} className='w-full flex justify-center'>
         <motion.div
           className='nes-container with-title is-rounded bg-white md:w-[45rem] shadow-lg rounded-lg p-6'
           initial={{ opacity: 0, y: 20 }}
@@ -359,13 +366,14 @@ export default function Home() {
           </div>
         </motion.div>
       </section>
-      <section ref={resumeRef} className='w-full flex justify-center gap-6'>
+
+      <section ref={contactRef} className='w-full flex justify-center gap-6'>
         <motion.div
           className='nes-container with-title is-rounded bg-white md:w-[45rem] shadow-lg rounded-lg p-6'
           initial={{ opacity: 0, y: 20 }}
           animate={{
-            opacity: resumeInView ? 1 : 0,
-            y: resumeInView ? 0 : 20,
+            opacity: contactInView ? 1 : 0,
+            y: contactInView ? 0 : 20,
           }}
           transition={{ duration: 0.6 }}
         >
@@ -373,7 +381,20 @@ export default function Home() {
         </motion.div>
       </section>
       {/* Add new sections */}
-      <section className='w-full flex justify-center gap-6 mb-20'></section>
+      <section ref={formRef} className='w-full flex justify-center gap-6'>
+        <motion.div
+          className='nes-container with-title is-rounded bg-white md:w-[45rem] shadow-lg rounded-lg p-6'
+          initial={{ opacity: 0, y: 20 }}
+          animate={{
+            opacity: formInView ? 1 : 0,
+            y: formInView ? 0 : 20,
+          }}
+          transition={{ duration: 0.6 }}
+        >
+          <h1 className='title'>Know your coffee?</h1>
+          <FormPage />
+        </motion.div>
+      </section>
     </main>
   );
 }
