@@ -1,4 +1,5 @@
 'use client';
+
 import { usePathname } from 'next/navigation';
 import Link from 'next/link'; // Import Link from next/link
 import './styles.css';
@@ -17,6 +18,7 @@ export default function Header() {
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const [activePath, setActivePath] = useState<string>(pathname);
   const modalRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   // Update activePath when pathname changes
   useEffect(() => {
@@ -28,7 +30,9 @@ export default function Header() {
     function handleClickOutside(event: MouseEvent) {
       if (
         modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
+        !modalRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
       ) {
         setIsShowModal(false);
       }
@@ -42,6 +46,11 @@ export default function Header() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  // Handle modal toggle
+  const toggleModal = () => {
+    setIsShowModal(prev => !prev);
+  };
 
   return (
     <header className='flex w-full justify-end p-5'>
@@ -104,7 +113,8 @@ export default function Header() {
         <button
           type='button'
           className='nes-btn is-primary'
-          onClick={() => setIsShowModal(!isShowModal)}
+          onClick={toggleModal}
+          ref={buttonRef}
         >
           <i className='nes-icon trophy'></i>
         </button>

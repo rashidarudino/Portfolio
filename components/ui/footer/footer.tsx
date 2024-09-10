@@ -1,34 +1,59 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 export default function Footer() {
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  // Function to handle clicks outside the modal
+  const handleClickOutside = (event: MouseEvent) => {
+    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      setIsShowModal(false);
+    }
+  };
+
+  // Set up event listener on mount
+  useEffect(() => {
+    if (isShowModal) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    // Clean up the event listener on unmount or when modal is closed
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isShowModal]);
 
   return (
-    <footer className='fixed bottom-5 left-5'>
+    <footer className='fixed bottom-5 left-5 z-20'>
       <button type='button' onClick={() => setIsShowModal(!isShowModal)}>
         <i className='nes-icon is-medium star'></i>
       </button>
 
       {isShowModal && (
         <div className='fixed inset-0 bg-gray-500/50 flex justify-center items-center z-10'>
-          <div className='nes-dialog w-[40rem] bg-white'>
-            <div className='flex justify-end'>
-              <button onClick={() => setIsShowModal(false)}>
-                <i className='nes-icon close is-small'></i>
+          <div
+            ref={modalRef}
+            className='nes-dialog bg-white w-11/12 max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-4xl overflow-y-auto max-h-[90vh]'
+          >
+            <div className='flex justify-end p-2'>
+              <button onClick={() => setIsShowModal(false)} aria-label='Close modal'>
+                <i className='nes-icon close is-error'></i>
               </button>
             </div>
-            <div className='flex flex-col justify-center items-center gap-5'>
-              <i className='snes-jp-logo'></i>
-              <p>Projects I'm currently working on:</p>
+            <div className='flex flex-col justify-center items-center gap-5 p-4'>
+              <i className='snes-jp-logo text-4xl md:text-5xl'></i>
+              <p className='text-center'>
+                Projects I'm currently working on:
+              </p>
 
               <Link href={'/archive#dl'}>
-                <div className='nes-container with-title is-dark'>
-                  <p className='title'>Datalogger</p>
+                <div className='nes-container with-title is-dark w-full'>
+                  <p className='title text-xs'>Datalogger</p>
                   <p className='text-xs'>
-                    Allows a new way to interact with, callibrate, record and
+                    Allows a new way to interact with, calibrate, record and
                     watch real-time data coming from sensors hooked up to
                     microcontrollers.
                     <progress
@@ -40,8 +65,10 @@ export default function Footer() {
                 </div>
               </Link>
               <Link href={'#'}>
-                <div className='nes-container with-title'>
-                  <p className='title'>http://toycube.com.au</p>
+                <div className='nes-container with-title w-full'>
+                  <p className='title text-xs'>
+                    http://toycube.com.au
+                  </p>
                   <p className='text-xs'>
                     My go-to personal blog hosted using Apache2, Svelte, Astro,
                     MDX and Adminer. Server runs on a RaspPi5.

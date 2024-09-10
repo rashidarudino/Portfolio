@@ -2,8 +2,8 @@
 
 import AirbrbImageSlider from '@/components/ui/image-slider/airbrb-image-slider';
 import WaitupImageSlider from '@/components/ui/image-slider/waitup-image-slider';
-import Image from "next/legacy/image";
-import React from 'react';
+import Image from 'next/legacy/image';
+import React, { useEffect, useState } from 'react';
 import './style.css';
 import {
   FaReact,
@@ -24,26 +24,68 @@ import DlImageSlider from '@/components/ui/image-slider/dl-image-slider';
 import { FaMobileScreenButton } from 'react-icons/fa6';
 
 export default function Archive() {
+  const [screenSize, setScreenSize] = useState('small');
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width <= 640) {
+        setScreenSize('small');
+      } else if (width <= 768) {
+        setScreenSize('medium');
+      } else if (width <= 1024) {
+        setScreenSize('large');
+      } else {
+        setScreenSize('extraLarge');
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const imageSize = {
+    small: 150,
+    medium: 200,
+    large: 250,
+    extraLarge: 300,
+  }[screenSize];
+
+  const imagePosition =
+    screenSize === 'small' || screenSize === 'medium' ? 'w-full' : '';
+
   return (
     <main className='flex flex-col items-center justify-between p-4 gap-10'>
-      <div className='nes-container with-title is-centered bg-blue-200 w-full max-w-screen-md fade-in-up'>
+      <div className='nes-container with-title is-centered bg-orange-700 w-full max-w-screen-md fade-in-up'>
         <p className='title'>Archive</p>
-        <div className='flex flex-col md:flex-row items-start md:space-x-4'>
-          <div className='nes-balloon from-right w-full max-w-md p-4'>
+        <div
+          className={`flex flex-col md:flex-row items-start md:space-x-4 ${
+            screenSize === 'large' || screenSize === 'extraLarge'
+              ? 'lg:flex-row-reverse'
+              : ''
+          }`}
+        >
+          {/* Balloon */}
+          <div className={`nes-balloon w-full max-w-md p-4`}>
             Welcome to the archive of apps!
             <p className='text-xs'>
               Here you can see my past web frontend development projects built
               in JavaScript.
             </p>
           </div>
-          <Image
-            src='/digital/digital-01.jpg'
-            alt='User Avatar'
-            className='nes-avatar is-large'
-            style={{ imageRendering: 'pixelated', marginLeft: '5rem' }}
-            width={300}
-            height={300}
-          />
+          {/* Image */}
+          <div className={`flex justify-center ${imagePosition}`}>
+            <Image
+              src='/toycube.webp'
+              alt='User Avatar'
+              className='nes-avatar is-large'
+              style={{ imageRendering: 'pixelated' }}
+              width={imageSize}
+              height={imageSize}
+            />
+          </div>
         </div>
       </div>
       <div className='mt-5 w-full max-w-screen-md space-y-10 md:space-y-20 mb-40'>
@@ -199,7 +241,7 @@ export default function Archive() {
             </table>
           </div>
           <br />
-          <p className=' text-xs text-orange-700'>
+          <p className='text-xs text-orange-700'>
             Engineered an innovative, scalable restaurant waiting system where I
             used the Material-UI framework to create these responsive vivid
             pages.
@@ -211,7 +253,7 @@ export default function Archive() {
             Airbrb Booking System
           </p>
           <p className='text-sm md:text-base lg:text-lg'>Year: 2023</p>
-          <p className='text-xs md:text-sm lg:text-base text-teal-900'>
+          <p className='text-xs  text-teal-900'>
             An Airbnb-inspired booking app with dynamic multi-page
             functionality. Features included calendars and the ability to
             create, view, update, or remove booking listings.
@@ -268,7 +310,7 @@ export default function Archive() {
             </table>
             <br />
           </div>
-          <p className='text-xs md:text-sm lg:text-base text-teal-900'>
+          <p className='text-xs  text-teal-900'>
             Developed in a pair, focusing on interactive and user-friendly
             design. Picked up new things about filters, REST API and cool
             features such as x-charts and date pickers.

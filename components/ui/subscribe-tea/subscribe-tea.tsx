@@ -3,13 +3,12 @@
 import Image from 'next/legacy/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FaSearch } from 'react-icons/fa';
+
 export default function SubscribeOrc() {
   const [isShowDialog, setIsShowDialog] = useState<boolean>(false);
 
   return (
-    <div className='fixed bottom-0 right-0 w-32 md:w-64'>
+    <div className='fixed bottom-0 right-0 w-32 md:w-64 hidden sm:flex items-center'>
       {isShowDialog && (
         <div className='nes-balloon from-left w-44 p-0'>
           <p className='text-xs'>

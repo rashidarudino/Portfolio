@@ -34,9 +34,10 @@ export default function About() {
         }`}
       >
         <h1 className='text-2xl sm:text-3xl font-bold mb-4'>About This Site</h1>
+        <p className='text-xs'>Retro x Nintendo x Modern</p>
         <p className='mb-4 text-sm sm:text-base'>
-          I’m passionate about frontend development, media art, pixels, and
-          vibrant colors, merging retro-inspired fantasy with a modern touch.
+          This site was built with passion for frontend development, media
+          art, pixels, and vibrant colors.
         </p>
       </section>
 

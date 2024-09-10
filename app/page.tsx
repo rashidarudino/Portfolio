@@ -9,16 +9,37 @@ import {
   FaCubes,
   FaBook,
   FaDownload,
+  FaJava,
 } from 'react-icons/fa'; // Import icons
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { IoFastFood } from 'react-icons/io5';
 import { BiChalkboard } from 'react-icons/bi';
-import { FaMessage } from 'react-icons/fa6';
+import { FaC, FaMessage } from 'react-icons/fa6';
 import ContactForm from '@/components/ui/contact-form/contact-form';
 import FormPage from '@/components/ui/form/form';
+import { useEffect, useState } from 'react';
+import {
+  SiApache,
+  SiBootstrap,
+  SiCplusplus,
+  SiCsharp,
+  SiExpress,
+  SiHtml5,
+  SiJavascript,
+  SiMui,
+  SiMysql,
+  SiNodemon,
+  SiPostgresql,
+  SiPython,
+  SiReact,
+  SiTailwindcss,
+} from 'react-icons/si';
+import { TbApi } from 'react-icons/tb';
 
 export default function Home() {
+  const [screenSize, setScreenSize] = useState('small');
+
   const { ref: profileRef, inView: profileInView } = useInView({
     triggerOnce: true,
   });
@@ -42,6 +63,36 @@ export default function Home() {
   });
 
   const router = useRouter();
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width <= 640) {
+        setScreenSize('small');
+      } else if (width <= 768) {
+        setScreenSize('medium');
+      } else if (width <= 1024) {
+        setScreenSize('large');
+      } else {
+        setScreenSize('extraLarge');
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const imageSize = {
+    small: 150,
+    medium: 200,
+    large: 250,
+    extraLarge: 300,
+  }[screenSize];
+
+  const imagePosition =
+    screenSize === 'small' || screenSize === 'medium' ? 'w-full' : '';
 
   return (
     <main className='flex flex-col items-center justify-center p-10 gap-24 mb-36'>
@@ -68,7 +119,7 @@ export default function Home() {
       {/* Profile Section */}
       <section ref={profileRef} className='w-full flex justify-center'>
         <motion.div
-          className='nes-container with-title is-centered bg-blue-100 md:w-[45rem] shadow-lg rounded-lg p-6'
+          className='nes-container with-title is-centered bg-blue-500 md:w-[45rem] shadow-lg rounded-lg p-6'
           initial={{ opacity: 0, y: 20 }}
           animate={{
             opacity: profileInView ? 1 : 0,
@@ -77,21 +128,31 @@ export default function Home() {
           transition={{ duration: 0.6 }}
         >
           <p className='title'>Profile</p>
-          <div className='flex items-start space-x-4'>
-            <Image
-              src='/digital/digital-01.jpg'
-              alt='User Avatar'
-              className='nes-avatar is-large'
-              style={{ imageRendering: 'pixelated', marginTop: '7rem' }}
-              width={400}
-              height={400}
-            />
-            <div className='nes-balloon from-left w-full max-w-md p-4'>
-              <p>Welcome to my portfolio!</p>
+          <div
+            className={`flex flex-col md:flex-row items-start md:space-x-4 ${
+              screenSize === 'large' || screenSize === 'extraLarge'
+                ? 'lg:flex-row-reverse'
+                : ''
+            }`}
+          >
+            {/* Balloon */}
+            <div className={`nes-balloon w-full max-w-md p-4`}>
+              Welcome to my portfolio!
               <p className='text-xs'>
                 I'm excited to share some of the technological adventures I've
                 embarked on. Enjoy your visit!
               </p>
+            </div>
+            {/* Image */}
+            <div className={`flex justify-center ${imagePosition}`}>
+              <Image
+                src='/toycube.webp'
+                alt='User Avatar'
+                className='nes-avatar is-large'
+                style={{ imageRendering: 'pixelated' }}
+                width={imageSize}
+                height={imageSize}
+              />
             </div>
           </div>
         </motion.div>
@@ -142,7 +203,7 @@ export default function Home() {
       {/* Skills Section */}
       <section ref={skillsRef} className='w-full flex justify-center'>
         <motion.div
-          className='nes-container is-rounded bg-white md:w-[45rem] shadow-lg rounded-lg p-6'
+          className='nes-container is-rounded bg-[#d4cfbe] md:w-[45rem] shadow-lg rounded-lg p-6'
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: skillsInView ? 1 : 0, y: skillsInView ? 0 : 20 }}
           transition={{ duration: 0.6 }}
@@ -155,11 +216,10 @@ export default function Home() {
               alt='Axe & Shield'
             />
             <p className='text-center text-xl font-semibold mt-4'>My Skills</p>
-
-            {/* Frontend Development */}
-            <section className='mt-8'>
+            {/* START of SKILLS >>> */}
+            <section className='mt-8 gap'>
               <motion.h2
-                className='text-2xl font-bold mb-2'
+                className='text-2xl font-bold mb-4 text-center'
                 initial={{ opacity: 0, y: -20 }}
                 animate={{
                   opacity: skillsInView ? 1 : 0,
@@ -169,32 +229,49 @@ export default function Home() {
               >
                 Frontend Development
               </motion.h2>
-              <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
-                <Link href='#' className='nes-badge bg-blue-200'>
-                  <span className='is-primary'>JavaScript</span>
-                </Link>
-                <Link href='#' className='nes-badge bg-yellow-200'>
-                  <span className='is-warning'>HTML/CSS</span>
-                </Link>
-                <Link href='#' className='nes-badge bg-gray-200'>
-                  <span className='is-dark'>React.js</span>
-                </Link>
-                <Link href='#' className='nes-badge bg-green-200'>
-                  <span className='is-success'>MUI</span>
-                </Link>
-                <Link href='#' className='nes-badge bg-red-200'>
-                  <span className='is-error'>Tailwind</span>
-                </Link>
-                <Link href='#' className='nes-badge bg-blue-200'>
-                  <span className='is-primary'>Bootstrap</span>
-                </Link>
+              <div className='text-xs gap-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4'>
+                <div className='nes-badge bg-[#1E90FF] is-icon flex items-center space-x-2 p-2 rounded-md shadow-md'>
+                  <span className='flex items-center text-white'>
+                    <SiJavascript size={20} />
+                  </span>
+                  <span className='text-black'>JavaScript</span>
+                </div>
+                <div className='nes-badge bg-[#FFD700] is-icon flex items-center space-x-2 p-2 rounded-md shadow-md'>
+                  <span className='flex items-center text-black'>
+                    <SiHtml5 size={20} />
+                  </span>
+                  <span className='text-black'>HTML/CSS</span>
+                </div>
+                <div className='nes-badge bg-[#61DAFB] is-icon flex items-center space-x-2 p-2 rounded-md shadow-md'>
+                  <span className='flex items-center text-black'>
+                    <SiReact size={20} />
+                  </span>
+                  <span className='text-black'>React.js</span>
+                </div>
+                <div className='nes-badge bg-[#007FFF] is-icon flex items-center space-x-2 p-2 rounded-md shadow-md'>
+                  <span className='flex items-center text-white'>
+                    <SiMui size={20} />
+                  </span>
+                  <span className='text-black'>MUI</span>
+                </div>
+                <div className='nes-badge bg-[#38BDF8] is-icon flex items-center space-x-2 p-2 rounded-md shadow-md'>
+                  <span className='flex items-center text-black'>
+                    <SiTailwindcss size={20} />
+                  </span>
+                  <span className='text-black'>Tailwind</span>
+                </div>
+                <div className='nes-badge bg-[#7952B3] is-icon flex items-center space-x-2 p-2 rounded-md shadow-md'>
+                  <span className='flex items-center text-white'>
+                    <SiBootstrap size={20} />
+                  </span>
+                  <span className='text-black'>Bootstrap</span>
+                </div>
               </div>
             </section>
 
-            {/* Backend Development */}
             <section className='mt-8'>
               <motion.h2
-                className='text-2xl font-bold mb-2'
+                className='text-2xl font-bold mb-4 text-center'
                 initial={{ opacity: 0, y: -20 }}
                 animate={{
                   opacity: skillsInView ? 1 : 0,
@@ -204,35 +281,49 @@ export default function Home() {
               >
                 Backend Development
               </motion.h2>
-              <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
-                <Link href='#' className='nes-badge bg-gray-200'>
-                  <span className='is-dark'>Node.js</span>
-                </Link>
-                <Link href='#' className='nes-badge bg-green-200'>
-                  <span className='is-success'>Express.js</span>
-                </Link>
-                <Link href='#' className='nes-badge bg-red-200'>
-                  <span className='is-error'>REST API</span>
-                </Link>
-                <Link href='#' className='nes-badge bg-blue-200'>
-                  <span className='is-primary'>MySQL</span>
-                </Link>
-                <Link href='#' className='nes-badge bg-yellow-200'>
-                  <span className='is-warning'>PostgreSQL</span>
-                </Link>
-                <Link href='#' className='nes-badge bg-gray-200'>
-                  <span className='is-dark'>Apache2</span>
-                </Link>
-                <Link href='#' className='nes-badge bg-green-200'>
-                  <span className='is-success'>Nginx</span>
-                </Link>
+              <div className='text-xs grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-10 '>
+                <div className='nes-badge bg-[#4E5D6C] is-icon flex items-center space-x-2 p-2 rounded-md shadow-md'>
+                  <span className='flex items-center text-white'>
+                    <SiNodemon size={20} />
+                  </span>
+                  <span className='text-black'>Node.js</span>
+                </div>
+                <div className='nes-badge bg-[#1F6F55] is-icon flex items-center space-x-2 p-2 rounded-md shadow-md'>
+                  <span className='flex items-center text-white'>
+                    <SiExpress size={20} />
+                  </span>
+                  <span className='text-black'>Express.js</span>
+                </div>
+                <div className='nes-badge bg-[#FF6347] is-icon flex items-center space-x-2 p-2 rounded-md shadow-md'>
+                  <span className='flex items-center text-black'>
+                    <TbApi size={20} />
+                  </span>
+                  <span className='text-black'>REST API</span>
+                </div>
+                <div className='nes-badge bg-[#00758F] is-icon flex items-center space-x-2 p-2 rounded-md shadow-md'>
+                  <span className='flex items-center text-white'>
+                    <SiMysql size={20} />
+                  </span>
+                  <span className='text-black'>MySQL</span>
+                </div>
+                <div className='nes-badge bg-[#F5F5F5] is-icon flex items-center space-x-2 p-2 rounded-md shadow-md'>
+                  <span className='flex items-center text-black'>
+                    <SiApache size={20} />
+                  </span>
+                  <span className='text-black'>Apache2</span>
+                </div>
+                <div className='nes-badge bg-[#003B77] is-icon flex items-center space-x-2 p-2 rounded-md shadow-md'>
+                  <span className='flex items-center text-white'>
+                    <SiPostgresql size={20} />
+                  </span>
+                  <span className='text-black'>PostgreSQL</span>
+                </div>
               </div>
             </section>
 
-            {/* Programming Languages */}
-            <section className='mt-8'>
+            <section className='mt-8 pb-10'>
               <motion.h2
-                className='text-2xl font-bold mb-2'
+                className='text-2xl font-bold mb-4 text-center'
                 initial={{ opacity: 0, y: -20 }}
                 animate={{
                   opacity: skillsInView ? 1 : 0,
@@ -240,29 +331,42 @@ export default function Home() {
                 }}
                 transition={{ duration: 0.5 }}
               >
-                Programming Languages
+                Languages
               </motion.h2>
-              <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
-                <Link href='#' className='nes-badge bg-red-200'>
-                  <span className='is-error'>Python</span>
-                </Link>
-                <Link href='#' className='nes-badge bg-blue-200'>
-                  <span className='is-primary'>JavaScript</span>
-                </Link>
-                <Link href='#' className='nes-badge bg-yellow-200'>
-                  <span className='is-warning'>Java</span>
-                </Link>
-                <Link href='#' className='nes-badge bg-green-200'>
-                  <span className='is-success'>C#</span>
-                </Link>
-                <Link href='#' className='nes-badge bg-gray-200'>
-                  <span className='is-dark'>C++</span>
-                </Link>
-                <Link href='#' className='nes-badge bg-red-200'>
-                  <span className='is-error'>C</span>
-                </Link>
+              <div className='text-xs grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-10 '>
+                <div className='nes-badge bg-[#306998] is-icon flex items-center space-x-2 p-2 rounded-md shadow-md'>
+                  <span className='flex items-center text-white'>
+                    <SiPython size={20} />
+                  </span>
+                  <span className='text-black'>Python</span>
+                </div>
+                <div className='nes-badge bg-[#F7E7B4] is-icon flex items-center space-x-2 p-2 rounded-md shadow-md'>
+                  <span className='flex items-center text-black'>
+                    <FaJava size={20} />
+                  </span>
+                  <span className='text-black'>Java</span>
+                </div>
+                <div className='nes-badge bg-[#6D6E6F] is-icon flex items-center space-x-2 p-2 rounded-md shadow-md'>
+                  <span className='flex items-center text-white'>
+                    <SiCsharp size={20} />
+                  </span>
+                  <span className='text-black'>C#</span>
+                </div>
+                <div className='nes-badge bg-[#6D6E6F] is-icon flex items-center space-x-2 p-2 rounded-md shadow-md'>
+                  <span className='flex items-center text-white'>
+                    <SiCplusplus size={20} />
+                  </span>
+                  <span className='text-black'>C++</span>
+                </div>
+                <div className='nes-badge bg-[#3F6C3F] is-icon flex items-center space-x-2 p-2 rounded-md shadow-md'>
+                  <span className='flex items-center text-white'>
+                    <FaC size={20} />
+                  </span>
+                  <span className='text-black'>C</span>
+                </div>
               </div>
             </section>
+            {/* <<< END of SKILLS  */}
           </div>
         </motion.div>
       </section>
@@ -377,13 +481,14 @@ export default function Home() {
           }}
           transition={{ duration: 0.6 }}
         >
+          <p className='title'>Contact Me</p>
           <ContactForm />
         </motion.div>
       </section>
       {/* Add new sections */}
       <section ref={formRef} className='w-full flex justify-center gap-6'>
         <motion.div
-          className='nes-container with-title is-rounded bg-white md:w-[45rem] shadow-lg rounded-lg p-6'
+          className='nes-container with-title is-rounded bg-white sm:w-[35rem] md:w-[45rem] lg:w-[55rem] shadow-lg rounded-lg p-6'
           initial={{ opacity: 0, y: 20 }}
           animate={{
             opacity: formInView ? 1 : 0,

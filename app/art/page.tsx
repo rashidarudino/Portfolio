@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css'; // Import the default styles
 import './styles.css';
 import Image from 'next/legacy/image';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 interface ArtItem {
   original: string;
 }
@@ -57,7 +58,7 @@ const artCategories: ArtCategories = {
   digital: [
     { original: '/digital/digital-04.jpg' },
     { original: '/digital/digital-00.jpg' },
-    { original: '/digital/digital-01.jpg' },
+    { original: '/toycube.webp' },
     { original: '/digital/digital-02.jpg' },
     { original: '/digital/digital-03.jpg' },
     { original: '/digital/digital-05.jpg' },
@@ -104,7 +105,7 @@ const artCategories: ArtCategories = {
 
 const categoryDescriptions: { [key in keyof ArtCategories]: string } = {
   pixels:
-    'Explore my pixel art commissions ordered by Deviantart users and other animation works.',
+    'Explore my pixel art commissions ordered by Deviantart users for group icons and avatars, including other animation works.',
   digital:
     'Discover a range of digital artwork including illustrations and graphics.',
   gameDev:
@@ -117,48 +118,80 @@ const categoryDescriptions: { [key in keyof ArtCategories]: string } = {
 
 // Function to generate a thumbnail from the original image
 const generateThumbnail = (src: string) => {
-  return src; // Use the original image as a thumbnail
+  return src;
 };
 
 export default function Art() {
   const [currentCategory, setCurrentCategory] = useState('pixels');
-
-  // Generate image objects for the gallery
-  // Generate image objects for the gallery
+  const [screenSize, setScreenSize] = useState('small');
   const images = artCategories[currentCategory as keyof ArtCategories].map(
     (item) => ({
       original: item.original,
-      thumbnail: generateThumbnail(item.original), // Use the original as thumbnail
+      thumbnail: generateThumbnail(item.original),
       description: currentCategory === 'pixels' ? 'pixel-art-image' : '',
     })
   );
 
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width <= 640) {
+        setScreenSize('small');
+      } else if (width <= 768) {
+        setScreenSize('medium');
+      } else if (width <= 1024) {
+        setScreenSize('large');
+      } else {
+        setScreenSize('extraLarge');
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const imageSize = {
+    small: 150,
+    medium: 200,
+    large: 250,
+    extraLarge: 300,
+  }[screenSize];
+
+  const imagePosition =
+    screenSize === 'small' || screenSize === 'medium' ? 'w-full' : '';
+
   return (
-    <main className='flex flex-col items-center justify-between p-4 gap-10'>
-      <div className='nes-container with-title is-centered bg-blue-200 w-full max-w-screen-md fade-in-up'>
+    <main className='flex flex-col items-center justify-between p-4 gap-10 mb-36'>
+      <div className='nes-container with-title is-centered bg-gradient-to-t bg-indigo-800 w-full max-w-screen-md fade-in-up'>
         <p className='title'>Art</p>
-        <div className='flex items-start space-x-4'>
-          <div className='nes-balloon from-right w-full max-w-md p-4'>
+        <div
+          className={`flex flex-col md:flex-row items-start md:space-x-4 ${
+            screenSize === 'large' || screenSize === 'extraLarge'
+              ? 'lg:flex-row-reverse'
+              : ''
+          }`}
+        >
+          <div className={`nes-balloon w-full max-w-md p-4`}>
             Welcome to the Art page!
             <p className='text-xs'>
               When I am not coding, I like to crochet, play the piano, or draw.
             </p>
           </div>
-          <Image
-            src='/digital/digital-01.jpg'
-            alt='User Avatar'
-            className='nes-avatar is-large'
-            style={{ imageRendering: 'pixelated', marginTop: '6rem' }}
-            width={400}
-            height={400}
-          />
+          <div className={`flex justify-center ${imagePosition}`}>
+            <Image
+              src='/toycube.webp'
+              alt='User Avatar'
+              className='nes-avatar is-large'
+              style={{ imageRendering: 'pixelated' }}
+              width={imageSize}
+              height={imageSize}
+            />
+          </div>
         </div>
-      </div>
-
-      <section className='nes-container w-3/4 h-3/4 bg-slate-50 mt-8 mb-36'>
-        <div className='nes-container with-title is-centered bg-blue-200 w-full max-w-screen-md fade-in-up'>
+        <div className='nes-container with-title is-centered mt-10 bg-indigo-200 w-full max-w-screen-md fade-in-up'>
           <h1 className='title text-center'>Gallery</h1>
-          Tip: you can hold down the arrow keys to browse.
           <div className='button-container'>
             {Object.keys(artCategories).map((category) => (
               <button
@@ -173,8 +206,16 @@ export default function Art() {
             ))}
           </div>
         </div>
+      </div>
+
+      <div className='nes-container with-title is-centered bg-gradient-to-t bg-indigo-900 w-full max-w-screen-md fade-in-up'>
         <br />
-        <p>{categoryDescriptions[currentCategory as keyof ArtCategories]}</p>
+        <p className='text-xs text-indigo-300'>
+          {' '}
+          Tip: use <FaArrowLeft style={{ display: 'inline' }} />{' '}
+          <FaArrowRight style={{ display: 'inline' }} /> keys to browse.
+        </p>
+        <p className='text-xs text-indigo-100'>{categoryDescriptions[currentCategory as keyof ArtCategories]}</p>
         <ImageGallery
           items={images}
           showFullscreenButton={true}
@@ -184,16 +225,7 @@ export default function Art() {
           showNav={true}
           thumbnailPosition='bottom'
           renderItem={(item) => (
-            <div
-              className={`image-gallery-image ${item.description}`}
-              style={{
-                width: '100%',
-                maxHeight: '50%',
-                maxWidth: '80vw',
-                textAlign: 'center',
-                height: 'auto',
-              }}
-            >
+            <div className={`image-gallery-image ${item.description}`}>
               <Image
                 src={item.original}
                 alt=''
@@ -201,11 +233,14 @@ export default function Art() {
                 width={800}
                 height={600}
                 priority
+                style={{
+                  objectFit: 'contain',
+                }}
               />
             </div>
           )}
         />
-      </section>
+      </div>
     </main>
   );
 }
