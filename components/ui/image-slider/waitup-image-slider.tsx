@@ -1,46 +1,30 @@
 import React from 'react';
-import Slider from 'react-slick';
-import Image from 'next/image';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'; // Custom arrows
+import ImageGallery from 'react-image-gallery';
+import 'react-image-gallery/styles/css/image-gallery.css';
 
 // Sample image data
 const images = [
-  '/waitup-figma1.png',
-  '/waitup-figma2.png',
-  '/waitup-home.png',
-  '/waitup-dashboard.png',
-  '/waitup-stat.png',
-  '/waitup-drawer.png',
-  '/waitup-item.png',
-  '/waitup-category.png',
+  { original: '/waitup-figma1.webp', thumbnail: '/waitup-figma1.webp' },
+  { original: '/waitup-figma2.webp', thumbnail: '/waitup-figma2.webp' },
+  { original: '/waitup-home.webp', thumbnail: '/waitup-home.webp' },
+  { original: '/waitup-dashboard.webp', thumbnail: '/waitup-dashboard.webp' },
+  { original: '/waitup-stat.webp', thumbnail: '/waitup-stat.webp' },
+  { original: '/waitup-drawer.webp', thumbnail: '/waitup-drawer.webp' },
+  { original: '/waitup-item.webp', thumbnail: '/waitup-item.webp' },
+  { original: '/waitup-category.webp', thumbnail: '/waitup-category.webp' },
 ];
 
 export default function WaitupImageSlider() {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 200,
-    slidesToShow: 2,
-    slidesToScroll: 2,
-    prevArrow: <button className='slider-arrow slider-prev'><FaArrowLeft /></button>,
-    nextArrow: <button className='slider-arrow slider-next'><FaArrowRight /></button>,
-  };
-
   return (
     <div className='slider-container'>
-      <Slider {...settings}>
-        {images.map((src, index) => (
-          <div key={index} className='slider-item'>
-            <Image
-              src={src}
-              alt={`Slide ${index}`}
-              layout='responsive'
-              width={1000}
-              height={600}
-            />
-          </div>
-        ))}
-      </Slider>
+      <ImageGallery
+        items={images}
+        showThumbnails={true}
+        showPlayButton={false}
+        showFullscreenButton={false}
+        autoPlay={false}
+        showBullets={true}
+      />
     </div>
   );
 }

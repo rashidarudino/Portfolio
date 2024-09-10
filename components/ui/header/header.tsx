@@ -2,7 +2,7 @@
 import { usePathname } from 'next/navigation';
 import Link from 'next/link'; // Import Link from next/link
 import './styles.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   FaArchive,
   FaDeviantart,
@@ -16,16 +16,37 @@ export default function Header() {
   const pathname = usePathname();
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const [activePath, setActivePath] = useState<string>(pathname);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   // Update activePath when pathname changes
   useEffect(() => {
     setActivePath(pathname);
   }, [pathname]);
 
+  // Handle clicks outside of the modal
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        setIsShowModal(false);
+      }
+    }
+
+    // Attach event listener
+    document.addEventListener('mousedown', handleClickOutside);
+
+    // Cleanup event listener
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <header className='flex w-full justify-end p-5'>
       <div className='flex gap-4'>
-        <Link href="/">
+        <Link href='/'>
           <button
             type='button'
             className={`nes-btn ${
@@ -38,7 +59,7 @@ export default function Header() {
           </button>
         </Link>
 
-        <Link href="/about">
+        <Link href='/about'>
           <button
             type='button'
             className={`nes-btn ${
@@ -52,7 +73,7 @@ export default function Header() {
           </button>
         </Link>
 
-        <Link href="/archive">
+        <Link href='/archive'>
           <button
             type='button'
             className={`nes-btn ${
@@ -66,7 +87,7 @@ export default function Header() {
           </button>
         </Link>
 
-        <Link href="/art">
+        <Link href='/art'>
           <button
             type='button'
             className={`nes-btn ${
@@ -90,7 +111,10 @@ export default function Header() {
       </div>
 
       {isShowModal && (
-        <div className='nes-dialog absolute top-20 bg-white z-10'>
+        <div
+          ref={modalRef}
+          className='nes-dialog absolute top-20 bg-white z-10'
+        >
           <div className='flex justify-end'>
             <button onClick={() => setIsShowModal(false)}>
               <i className='nes-icon close is-small'></i>

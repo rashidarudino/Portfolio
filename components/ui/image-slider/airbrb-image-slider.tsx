@@ -1,45 +1,50 @@
 import React from 'react';
-import Slider from 'react-slick';
-import Image from 'next/image';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'; // Custom arrows
+import ImageGallery from 'react-image-gallery';
+import 'react-image-gallery/styles/css/image-gallery.css';
 
 // Sample image data
 const images = [
-  '/airbrb-bookings.png',
-  '/airbrb-filters.png',
-  '/airbrb-filtered.png',
-  '/airbrb-booking.png',
-  '/airbrb-ratings.png',
-  '/airbrb-form.png',
-  '/airbrb-edit.png',
+  {
+    original: '/airbrb-bookings.webp',
+    thumbnail: '/airbrb-bookings.webp',
+  },
+  {
+    original: '/airbrb-filters.webp',
+    thumbnail: '/airbrb-filters.webp',
+  },
+  {
+    original: '/airbrb-filtered.webp',
+    thumbnail: '/airbrb-filtered.webp',
+  },
+  {
+    original: '/airbrb-booking.webp',
+    thumbnail: '/airbrb-booking.webp',
+  },
+  {
+    original: '/airbrb-ratings.webp',
+    thumbnail: '/airbrb-ratings.webp',
+  },
+  {
+    original: '/airbrb-form.webp',
+    thumbnail: '/airbrb-form.webp',
+  },
+  {
+    original: '/airbrb-edit.webp',
+    thumbnail: '/airbrb-edit.webp',
+  },
 ];
 
 export default function AirbrbImageSlider() {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 200,
-    slidesToShow: 2,
-    slidesToScroll: 2,
-    prevArrow: <button className='slider-arrow slider-prev'><FaArrowLeft /></button>,
-    nextArrow: <button className='slider-arrow slider-next'><FaArrowRight /></button>,
-  };
-
   return (
     <div className='slider-container'>
-      <Slider {...settings}>
-        {images.map((src, index) => (
-          <div key={index} className='slider-item'>
-            <Image
-              src={src}
-              alt={`Slide ${index}`}
-              layout='responsive'
-              width={1000}
-              height={600}
-            />
-          </div>
-        ))}
-      </Slider>
+      <ImageGallery
+        items={images}
+        showThumbnails={true}
+        showPlayButton={false}
+        showFullscreenButton={false}
+        autoPlay={false}
+        showBullets={true}
+      />
     </div>
   );
 }

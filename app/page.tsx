@@ -359,17 +359,19 @@ export default function Home() {
           </div>
         </motion.div>
       </section>
-      <motion.div
-        className='nes-container with-title is-rounded bg-white md:w-[45rem] shadow-lg rounded-lg p-6'
-        initial={{ opacity: 0, y: 20 }}
-        animate={{
-          opacity: resumeInView ? 1 : 0,
-          y: resumeInView ? 0 : 20,
-        }}
-        transition={{ duration: 0.6 }}
-      >
-        <ContactForm />
-      </motion.div>
+      <section ref={resumeRef} className='w-full flex justify-center gap-6'>
+        <motion.div
+          className='nes-container with-title is-rounded bg-white md:w-[45rem] shadow-lg rounded-lg p-6'
+          initial={{ opacity: 0, y: 20 }}
+          animate={{
+            opacity: resumeInView ? 1 : 0,
+            y: resumeInView ? 0 : 20,
+          }}
+          transition={{ duration: 0.6 }}
+        >
+          <ContactForm />
+        </motion.div>
+      </section>
       {/* Add new sections */}
       <section className='w-full flex justify-center gap-6 mb-20'></section>
     </main>
