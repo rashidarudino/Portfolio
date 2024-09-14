@@ -39,15 +39,16 @@ export default function Footer() {
             className='nes-dialog bg-white w-11/12 max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-4xl overflow-y-auto max-h-[90vh]'
           >
             <div className='flex justify-end p-2'>
-              <button onClick={() => setIsShowModal(false)} aria-label='Close modal'>
+              <button
+                onClick={() => setIsShowModal(false)}
+                aria-label='Close modal'
+              >
                 <i className='nes-icon close is-error'></i>
               </button>
             </div>
             <div className='flex flex-col justify-center items-center gap-5 p-4'>
               <i className='snes-jp-logo text-4xl md:text-5xl'></i>
-              <p className='text-center'>
-                Projects I'm currently working on:
-              </p>
+              <p className='text-center'>Projects I'm currently working on:</p>
 
               <Link href={'/archive#dl'}>
                 <div className='nes-container with-title is-dark w-full'>
@@ -64,14 +65,14 @@ export default function Footer() {
                   </p>
                 </div>
               </Link>
-              <Link href={'#'}>
+              <Link href={'https://rashidarudino.netlify.app/'}>
                 <div className='nes-container with-title w-full'>
                   <p className='title text-xs'>
-                    http://toycube.com.au
+                    Bento Portfolio
                   </p>
                   <p className='text-xs'>
-                    My go-to personal blog hosted using Apache2, Svelte, Astro,
-                    MDX and Adminer. Server runs on a RaspPi5.
+                    A modern portfolio theme built using react and three.js.
+                    Integrating it with blender to create some sleek ui.
                   </p>
                   <progress
                     className='nes-progress is-pattern'

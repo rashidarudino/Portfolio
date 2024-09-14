@@ -36,7 +36,6 @@ import {
   SiTailwindcss,
 } from 'react-icons/si';
 import { TbApi } from 'react-icons/tb';
-import { Canvas } from '@react-three/fiber';
 
 export default function Home() {
   const [screenSize, setScreenSize] = useState('small');
