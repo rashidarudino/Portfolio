@@ -5,27 +5,14 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 
 export default function SubscribeOrc() {
-  const [isShowDialog, setIsShowDialog] = useState<boolean>(false);
-
   return (
     <div className='fixed bottom-0 right-0 w-32 md:w-64 hidden sm:flex items-center'>
-      {isShowDialog && (
-        <div className='nes-balloon from-left w-44 p-0'>
-          <p className='text-xs'>
-            Hello!
-          </p>
-        </div>
-      )}
-
-      <Link href={'#'}>
+      <Link href={'https://rashidarudino.netlify.app/'}>
         <Image
-          onMouseEnter={() => setIsShowDialog(true)}
-          onMouseLeave={() => setIsShowDialog(false)}
-          src={'/bubble-tea.gif'}
+          src={'/revit/house.gif'}
           priority
-          width={100}
-          height={100}
-          style={{ marginLeft: '10rem' }}
+          width={300}
+          height={250}
           alt='Orc'
         />
       </Link>
