@@ -36,6 +36,8 @@ import {
   SiTailwindcss,
 } from 'react-icons/si';
 import { TbApi } from 'react-icons/tb';
+import { Canvas } from '@react-three/fiber';
+import Box from '@/components/ui/three/box';
 
 export default function Home() {
   const [screenSize, setScreenSize] = useState('small');
@@ -115,7 +117,6 @@ export default function Home() {
           Exploring the world of technology and creativity
         </motion.p>
       </header>
-
       {/* Profile Section */}
       <section ref={profileRef} className='w-full flex justify-center'>
         <motion.div
