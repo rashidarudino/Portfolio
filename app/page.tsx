@@ -103,7 +103,7 @@ export default function Home() {
           className='text-4xl font-bold text-blue-500'
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.2 }}
         >
           Rashida Rudino
         </motion.h1>
@@ -111,7 +111,7 @@ export default function Home() {
           className='text-lg text-gray-700'
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.2 }}
         >
           Exploring the world of technology and creativity
         </motion.p>
@@ -125,7 +125,7 @@ export default function Home() {
             opacity: profileInView ? 1 : 0,
             y: profileInView ? 0 : 20,
           }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.1 }}
         >
           <p className='title'>Profile</p>
           <div
@@ -167,7 +167,7 @@ export default function Home() {
             opacity: educationInView ? 1 : 0,
             y: educationInView ? 0 : 20,
           }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.2 }}
         >
           <p className='title'>Education & Work Experience</p>
           <div className='flex flex-col gap-4'>
@@ -206,7 +206,7 @@ export default function Home() {
           className='nes-container is-rounded bg-[#d4cfbe] md:w-[45rem] shadow-lg rounded-lg p-6'
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: skillsInView ? 1 : 0, y: skillsInView ? 0 : 20 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.2 }}
         >
           <div className='flex flex-col items-center'>
             <Image
@@ -380,7 +380,7 @@ export default function Home() {
             opacity: projectInView ? 1 : 0,
             y: projectInView ? 0 : 20,
           }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.2 }}
         >
           <p className='title'>Projects</p>
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6'>
@@ -447,7 +447,7 @@ export default function Home() {
             opacity: resumeInView ? 1 : 0,
             y: resumeInView ? 0 : 20,
           }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.2 }}
         >
           <p className='title'>Download Resume</p>
           <div className='flex flex-col items-center mt-4'>
@@ -479,7 +479,7 @@ export default function Home() {
             opacity: contactInView ? 1 : 0,
             y: contactInView ? 0 : 20,
           }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.2 }}
         >
           <p className='title'>Contact Me</p>
           <ContactForm />
@@ -494,7 +494,7 @@ export default function Home() {
             opacity: formInView ? 1 : 0,
             y: formInView ? 0 : 20,
           }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.2 }}
         >
           <h1 className='title'>Know your coffee?</h1>
           <FormPage />
