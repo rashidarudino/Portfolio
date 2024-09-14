@@ -37,7 +37,6 @@ import {
 } from 'react-icons/si';
 import { TbApi } from 'react-icons/tb';
 import { Canvas } from '@react-three/fiber';
-import Box from '@/components/ui/three/box';
 
 export default function Home() {
   const [screenSize, setScreenSize] = useState('small');
